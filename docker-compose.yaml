@@ -32,6 +32,11 @@ services:
     command: pnpm run dockerstart
     profiles:
       - production
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.cors-headers.headers.customResponseHeaders.Cross-Origin-Opener-Policy=same-origin"
+      - "traefik.http.middlewares.cors-headers.headers.customResponseHeaders.Cross-Origin-Embedder-Policy=require-corp"
+      - "traefik.http.routers.app-prod.middlewares=cors-headers"
 
   app-dev:
     image: bolt-ai:development
